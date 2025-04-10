@@ -128,31 +128,27 @@ class _RecordingScreenState extends State<RecordingScreen> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        iconTheme: const IconThemeData(color: AppColors.darkGray),
+        toolbarHeight: 80,  
+        title: Image.asset(
+          'assets/images/logo_with_text.png',
+          height: 55,  
+          fit: BoxFit.contain,
+        ),
+        centerTitle: true,
       ),
       body: SafeArea(
         child: Column(
           children: [
-            // Logo section
+            // Title section
             Padding(
-              padding: const EdgeInsets.fromLTRB(20, 0, 20, 24),
-              child: Column(
-                children: [
-                  Image.asset(
-                    'assets/images/logo_with_text.png',
-                    height: 70,
-                    fit: BoxFit.contain,
-                  ),
-                  const SizedBox(height: 32),
-                  const Text(
-                    'Record Job Details',
-                    style: TextStyle(
-                      color: AppColors.darkGray,
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
+              padding: const EdgeInsets.fromLTRB(20, 16, 20, 16),
+              child: Text(
+                'Record Job Details',
+                style: TextStyle(
+                  color: AppColors.darkGray,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
             // Recording section
