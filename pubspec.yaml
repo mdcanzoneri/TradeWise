@@ -31,11 +31,11 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
-  record: ^5.0.4  # For voice recording
-  path_provider: ^2.1.2  # For managing file paths
-  permission_handler: ^11.3.0  # For handling permissions
+  permission_handler: ^11.0.0
+  record: ^5.0.1
+  path_provider: ^2.0.15
+  provider: ^6.0.5
   google_speech: ^4.1.0  # For Google Cloud Speech-to-Text
-  provider: ^6.1.2  # For state management
   sqflite: ^2.3.2  # For local database
   path: ^1.8.3  # For path manipulation
 
@@ -62,9 +62,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  assets:
+    - assets/images/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

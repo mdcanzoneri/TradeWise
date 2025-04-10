@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:provider/provider.dart';
 import '../constants/colors.dart';
 import '../services/voice_recorder_service.dart';
 
@@ -125,74 +124,91 @@ class _RecordingScreenState extends State<RecordingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.darkGray,
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.white,
         elevation: 0,
-        title: const Text('Record Job Details'),
+        iconTheme: const IconThemeData(color: AppColors.darkGray),
       ),
-      body: Center(
+      body: SafeArea(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // Sound wave animation placeholder
-            Container(
-              height: 100,
-              width: double.infinity,
-              margin: const EdgeInsets.symmetric(horizontal: 20),
-              decoration: BoxDecoration(
-                color: _isRecording ? AppColors.electricBlue.withOpacity(0.3) : Colors.transparent,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: const Center(
-                child: Text(
-                  'Sound Wave Animation',
-                  style: TextStyle(color: AppColors.electricBlue),
-                ),
-              ),
-            ),
-            const SizedBox(height: 40),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                if (_isRecording)
-                  FloatingActionButton(
-                    onPressed: _togglePause,
-                    backgroundColor: AppColors.lightGray,
-                    child: Icon(
-                      _isPaused ? Icons.play_arrow : Icons.pause,
+            // Logo section
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 0, 20, 24),
+              child: Column(
+                children: [
+                  Image.asset(
+                    'assets/images/logo_with_text.png',
+                    height: 70,
+                    fit: BoxFit.contain,
+                  ),
+                  const SizedBox(height: 32),
+                  const Text(
+                    'Record Job Details',
+                    style: TextStyle(
                       color: AppColors.darkGray,
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                const SizedBox(width: 20),
-                FloatingActionButton.large(
-                  onPressed: _toggleRecording,
-                  backgroundColor: _isRecording ? AppColors.constructionOrange : AppColors.electricBlue,
-                  child: Icon(
-                    _isRecording ? Icons.stop : Icons.mic,
-                    size: 36,
-                  ),
-                ),
-                if (_isRecording)
-                  const SizedBox(width: 20),
-                if (_isRecording)
-                  FloatingActionButton(
-                    onPressed: _toggleRecording,
-                    backgroundColor: AppColors.darkGray,
-                    child: const Icon(Icons.close),
-                  ),
-              ],
+                ],
+              ),
             ),
-            const SizedBox(height: 20),
-            Text(
-              _isRecording
-                  ? _isPaused
-                      ? 'Paused'
-                      : 'Recording...'
-                  : 'Tap to Start Recording',
-              style: const TextStyle(
-                color: AppColors.lightGray,
-                fontSize: 16,
+            // Recording section
+            Expanded(
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        if (_isRecording)
+                          FloatingActionButton(
+                            onPressed: _togglePause,
+                            backgroundColor: Colors.grey[200],
+                            child: Icon(
+                              _isPaused ? Icons.play_arrow : Icons.pause,
+                              color: AppColors.darkGray,
+                            ),
+                          ),
+                        const SizedBox(width: 20),
+                        FloatingActionButton.large(
+                          onPressed: _toggleRecording,
+                          backgroundColor: _isRecording ? AppColors.constructionOrange : AppColors.electricBlue,
+                          child: Icon(
+                            _isRecording ? Icons.stop : Icons.mic,
+                            size: 36,
+                          ),
+                        ),
+                        if (_isRecording)
+                          const SizedBox(width: 20),
+                        if (_isRecording)
+                          FloatingActionButton(
+                            onPressed: _toggleRecording,
+                            backgroundColor: Colors.grey[200],
+                            child: Icon(
+                              Icons.close,
+                              color: AppColors.darkGray,
+                            ),
+                          ),
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    Text(
+                      _isRecording
+                          ? _isPaused
+                              ? 'Paused'
+                              : 'Recording...'
+                          : 'Tap to Start Recording',
+                      style: TextStyle(
+                        color: AppColors.darkGray,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
