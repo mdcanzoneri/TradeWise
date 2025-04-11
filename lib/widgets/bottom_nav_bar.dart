@@ -13,35 +13,35 @@ class BottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            blurRadius: 10,
-            offset: const Offset(0, -5),
+    return BottomNavigationBar(
+      currentIndex: currentIndex,
+      onTap: onTap,
+      backgroundColor: AppColors.darkGray,
+      selectedItemColor: AppColors.electricBlue,
+      unselectedItemColor: Colors.white54,
+      selectedIconTheme: const IconThemeData(size: 32),
+      unselectedIconTheme: const IconThemeData(size: 32),
+      selectedLabelStyle: const TextStyle(height: 1.0),
+      unselectedLabelStyle: const TextStyle(height: 1.0),
+      type: BottomNavigationBarType.fixed,
+      elevation: 8,
+      iconSize: 32,
+      items: const [
+        BottomNavigationBarItem(
+          icon: Padding(
+            padding: EdgeInsets.only(top: 8),
+            child: Icon(Icons.mic),
           ),
-        ],
-      ),
-      child: BottomNavigationBar(
-        currentIndex: currentIndex,
-        onTap: onTap,
-        backgroundColor: AppColors.constructionOrange,
-        selectedItemColor: Colors.white,
-        unselectedItemColor: Colors.white70,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.mic_none),
-            activeIcon: Icon(Icons.mic),
-            label: 'Record',
+          label: 'Record',
+        ),
+        BottomNavigationBarItem(
+          icon: Padding(
+            padding: EdgeInsets.only(top: 8),
+            child: Icon(Icons.work),
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.work_outline),
-            activeIcon: Icon(Icons.work),
-            label: 'Jobs',
-          ),
-        ],
-      ),
+          label: 'Jobs',
+        ),
+      ],
     );
   }
 }

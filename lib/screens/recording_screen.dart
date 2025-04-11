@@ -130,83 +130,75 @@ class _RecordingScreenState extends State<RecordingScreen> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        toolbarHeight: 80,  
+        toolbarHeight: 80,
         title: Image.asset(
           'assets/images/logo_with_text.png',
-          height: 55,  
+          height: 55,
           fit: BoxFit.contain,
         ),
         centerTitle: true,
       ),
       body: SafeArea(
-        child: Column(
-          children: [
-            // Title section
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20, 16, 20, 16),
-              child: Text(
-                'Record Job Details',
-                style: TextStyle(
-                  color: AppColors.darkGray,
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      if (_isRecording)
-                        FloatingActionButton(
-                          onPressed: _togglePause,
-                          backgroundColor: Colors.grey[200],
-                          child: Icon(
-                            _isPaused ? Icons.play_arrow : Icons.pause,
-                            color: AppColors.darkGray,
-                          ),
-                        ),
-                      const SizedBox(width: 20),
-                      FloatingActionButton.large(
-                        onPressed: _toggleRecording,
-                        backgroundColor: _isRecording ? AppColors.constructionOrange : AppColors.electricBlue,
-                        child: Icon(
-                          _isRecording ? Icons.stop : Icons.mic,
-                          size: 36,
-                        ),
-                      ),
-                      if (_isRecording)
-                        const SizedBox(width: 20),
-                      if (_isRecording)
-                        FloatingActionButton(
-                          onPressed: _toggleRecording,
-                          backgroundColor: Colors.grey[200],
-                          child: Icon(
-                            Icons.close,
-                            color: AppColors.darkGray,
-                          ),
-                        ),
-                    ],
-                  ),
-                  const SizedBox(height: 20),
-                  Text(
-                    _isRecording
-                        ? _isPaused
-                            ? 'Recording Paused'
-                            : 'Recording...'
-                        : 'Tap to Start Recording',
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500,
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: 160,
+                height: 160,
+                child: FittedBox(
+                  child: FloatingActionButton(
+                    onPressed: _toggleRecording,
+                    backgroundColor: _isRecording ? AppColors.electricBlue : AppColors.constructionOrange,
+                    child: Icon(
+                      _isRecording ? Icons.stop : Icons.mic,
+                      size: 36,
+                      color: Colors.white,
                     ),
                   ),
-                ],
+                ),
               ),
-            ),
-          ],
+              const SizedBox(height: 40),
+              if (_isRecording)
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    FloatingActionButton(
+                      onPressed: _togglePause,
+                      backgroundColor: Colors.grey[200],
+                      child: Icon(
+                        _isPaused ? Icons.play_arrow : Icons.pause,
+                        color: AppColors.darkGray,
+                      ),
+                    ),
+                    const SizedBox(width: 20),
+                    FloatingActionButton(
+                      onPressed: _toggleRecording,
+                      backgroundColor: Colors.grey[200],
+                      child: Icon(
+                        Icons.close,
+                        color: AppColors.darkGray,
+                      ),
+                    ),
+                  ],
+                ),
+              const SizedBox(height: 24),
+              Text(
+                _isRecording
+                    ? _isPaused
+                        ? 'Recording Paused'
+                        : 'Recording...'
+                    : 'Tap to Record Job Details',
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.black87,
+                  letterSpacing: 0.5,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: BottomNavBar(
