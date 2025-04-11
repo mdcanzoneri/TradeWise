@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import '../constants/colors.dart';
 import '../services/voice_recorder_service.dart';
+import '../widgets/bottom_nav_bar.dart';
+import 'jobs_list_screen.dart';
 
 class RecordingScreen extends StatefulWidget {
   const RecordingScreen({super.key});
@@ -151,64 +153,85 @@ class _RecordingScreenState extends State<RecordingScreen> {
                 ),
               ),
             ),
-            // Recording section
             Expanded(
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        if (_isRecording)
-                          FloatingActionButton(
-                            onPressed: _togglePause,
-                            backgroundColor: Colors.grey[200],
-                            child: Icon(
-                              _isPaused ? Icons.play_arrow : Icons.pause,
-                              color: AppColors.darkGray,
-                            ),
-                          ),
-                        const SizedBox(width: 20),
-                        FloatingActionButton.large(
-                          onPressed: _toggleRecording,
-                          backgroundColor: _isRecording ? AppColors.constructionOrange : AppColors.electricBlue,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      if (_isRecording)
+                        FloatingActionButton(
+                          onPressed: _togglePause,
+                          backgroundColor: Colors.grey[200],
                           child: Icon(
-                            _isRecording ? Icons.stop : Icons.mic,
-                            size: 36,
+                            _isPaused ? Icons.play_arrow : Icons.pause,
+                            color: AppColors.darkGray,
                           ),
                         ),
-                        if (_isRecording)
-                          const SizedBox(width: 20),
-                        if (_isRecording)
-                          FloatingActionButton(
-                            onPressed: _toggleRecording,
-                            backgroundColor: Colors.grey[200],
-                            child: Icon(
-                              Icons.close,
-                              color: AppColors.darkGray,
-                            ),
-                          ),
-                      ],
-                    ),
-                    const SizedBox(height: 20),
-                    Text(
-                      _isRecording
-                          ? _isPaused
-                              ? 'Paused'
-                              : 'Recording...'
-                          : 'Tap to Start Recording',
-                      style: TextStyle(
-                        color: AppColors.darkGray,
-                        fontSize: 16,
+                      const SizedBox(width: 20),
+                      FloatingActionButton.large(
+                        onPressed: _toggleRecording,
+                        backgroundColor: _isRecording ? AppColors.constructionOrange : AppColors.electricBlue,
+                        child: Icon(
+                          _isRecording ? Icons.stop : Icons.mic,
+                          size: 36,
+                        ),
                       ),
+                      if (_isRecording)
+                        const SizedBox(width: 20),
+                      if (_isRecording)
+                        FloatingActionButton(
+                          onPressed: _toggleRecording,
+                          backgroundColor: Colors.grey[200],
+                          child: Icon(
+                            Icons.close,
+                            color: AppColors.darkGray,
+                          ),
+                        ),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  Text(
+                    _isRecording
+                        ? _isPaused
+                            ? 'Recording Paused'
+                            : 'Recording...'
+                        : 'Tap to Start Recording',
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500,
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ],
         ),
+      ),
+      bottomNavigationBar: BottomNavBar(
+        currentIndex: 0,
+        onTap: (index) {
+          if (index == 1) {
+            try {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const JobsListScreen(),
+                ),
+              );
+            } catch (e) {
+              // Fallback if navigation fails
+              if (context.mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Unable to switch screens. Please try again.'),
+                  ),
+                );
+              }
+            }
+          }
+        },
       ),
     );
   }

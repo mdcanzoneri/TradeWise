@@ -38,6 +38,7 @@ dependencies:
   google_speech: ^4.1.0  # For Google Cloud Speech-to-Text
   sqflite: ^2.3.2  # For local database
   path: ^1.8.3  # For path manipulation
+  intl: ^0.20.2
 
 dev_dependencies:
   flutter_test:
