@@ -35,10 +35,11 @@ dependencies:
   record: ^5.0.1
   path_provider: ^2.0.15
   provider: ^6.0.5
-  google_speech: ^4.1.0  # For Google Cloud Speech-to-Text
   sqflite: ^2.3.2  # For local database
   path: ^1.8.3  # For path manipulation
   intl: ^0.20.2
+  shared_preferences: ^2.2.2  # For storing jobs data
+  uuid: ^4.3.3  # For generating unique IDs
 
 dev_dependencies:
   flutter_test:
@@ -65,6 +66,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
+    - assets/credentials/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

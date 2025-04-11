@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import '../constants/colors.dart';
 import '../services/voice_recorder_service.dart';
+import '../services/transcription_service.dart';
+import '../services/job_service.dart';
 import '../widgets/bottom_nav_bar.dart';
 import 'jobs_list_screen.dart';
 
@@ -88,9 +90,60 @@ class _RecordingScreenState extends State<RecordingScreen> {
           _isPaused = false;
         });
         if (path != null && mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Recording saved to: $path')),
-          );
+          try {
+            // Show processing dialog
+            showDialog(
+              context: context,
+              barrierDismissible: false,
+              builder: (context) => const AlertDialog(
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    CircularProgressIndicator(),
+                    SizedBox(height: 16),
+                    Text('Processing recording...'),
+                  ],
+                ),
+              ),
+            );
+
+            // Transcribe the audio
+            final transcript = await TranscriptionService.transcribeAudio(path);
+
+            // Create a new job
+            final job = await JobService.addJob(
+              title: 'New Job ${DateTime.now().toString().split(' ')[0]}',
+              description: transcript.length > 100 
+                  ? '${transcript.substring(0, 100)}...' 
+                  : transcript,
+              transcript: transcript,
+              location: 'Location pending',
+              customerName: 'Customer pending',
+              audioUrl: path,
+            );
+
+            if (mounted) {
+              // Close processing dialog
+              Navigator.pop(context);
+              
+              // Navigate to jobs list
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const JobsListScreen(),
+                ),
+              );
+            }
+          } catch (e) {
+            if (mounted) {
+              // Close processing dialog if open
+              Navigator.pop(context);
+              
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('Error processing recording: ${e.toString()}')),
+              );
+            }
+          }
         }
       }
     } catch (e) {
