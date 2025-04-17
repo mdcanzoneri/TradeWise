@@ -1,7 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart'; // Import provider
+import 'package:tradewise/src/app.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    // Wrap the entire app in MultiProvider
+    MultiProvider(
+      providers: [
+        // TODO: Add specific providers here later (e.g., JobProvider, AuthProvider)
+        // Example:
+        // ChangeNotifierProvider(create: (_) => JobProvider()),
+      ],
+      child: const MyApp(), // Our main application widget
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
